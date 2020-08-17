@@ -9,9 +9,6 @@
 %\usepackage{newtxsf}
 \usepackage{graphicx}
 
-%Custom commands
-\newcommand{\miss}{\\{\hspace{1cm}\color{red} \textbf{MISSING CONTENT}}\\}
-
 % Custom math operators
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -122,7 +119,7 @@ Works with two pointers $l$ and $r$. If $l > r$ the search was without result.
 \section{Selecting}
 
 \subsection{Blum's Algorithm}
-A good pivot can be selected using the median-of-medians-algorithm
+A good pivot can be selected using the median-of-medians-algorithm. $\mathbf{O}(n)$
 
 \begin{enumerate}
     \item Consider groups of 5 elements
@@ -775,12 +772,16 @@ Bad synchronisation of a shared resource, e.g. two writing processes at the same
 Unlucky order of execution of e.g. two threads even though the shared resource is otherwise well synchronised.
 
 \section{Complexities}
+
+{
+
+\setlength\tabcolsep{0.8pt}
 \begingroup
-\tiny
+\scriptsize
 \renewcommand{\arraystretch}{2} 
 \begin{tabular}{|c | c c c | c|}
     \hline
-        Algorithm &  \multicolumn{3}{c|}{Time Complexity}   & Space Complexity \\
+        \textbf{Algorithm} &  \multicolumn{3}{c|}{Time Complexity}   & Space Complexity \\
          & Best & Average & Worst & Worst \\ \hline
         Quicksort & \cellcolor{orange} $\Omega(n\cdot log(n))$ & \cellcolor{orange} $\Theta(n \cdot log(n))$ & \cellcolor{red} $\mathcal{O}(n^2)$ & \cellcolor[HTML]{9acd32} $\mathcal{O}(log(n))$ \\ \hline
         Mergesort & \cellcolor{orange} $\Omega(n \cdot log(n))$ & \cellcolor{orange} $\Theta (n \cdot log(n))$ & \cellcolor{orange} $\mathcal{O}(n \cdot log(n))$ & \cellcolor{yellow} $\mathcal{O}(n)$ \\ \hline
@@ -798,12 +799,17 @@ Unlucky order of execution of e.g. two threads even though the shared resource i
 % \usepackage{graphicx}
 
 {
-\tiny
+\centering
+\setlength\tabcolsep{2pt}
+\scriptsize
 %\resizebox{\textwidth}
 {
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Data Structure} &
+\begin{tabular}{c}
+    \textbf{Data}\\\textbf{Structure}
+\end{tabular}
+ &
   \multicolumn{4}{c|}{\textbf{Time Complexity}} &
    \\ \hline
 Average &
@@ -865,7 +871,10 @@ AVL Tree &
    \\ \hline
 \multicolumn{1}{|l|}{} &
   \multicolumn{4}{c|}{Worst} &
-  Space Complexity \\ \hline
+  \begin{tabular}{c}
+      Space\\Complexity
+  \end{tabular}
+   \\ \hline
  &
   Access &
   Search &
@@ -901,7 +910,7 @@ Skip-List &
   \cellcolor{yellow} $\mathcal{O}(n)$ &
   \cellcolor{yellow} $\mathcal{O}(n)$ &
   \cellcolor{yellow} $\mathcal{O}(n)$ &\cellcolor{orange}
-  \begin{tabular}[c]{@{}c@{}} $\mathcal{O}$\\ $(n \cdot log(n))$\end{tabular} \\ \hline
+  \begin{tabular}[c]{@{}c@{}} $\mathcal{O}(n \cdot $\\$\log(n))$\end{tabular} \\ \hline
 Hash-Table &
   \cellcolor{lightgray} N/A &
   \cellcolor{yellow} $\mathcal{O}(n)$ &
@@ -922,7 +931,7 @@ AVL Tree &
   \cellcolor{yellow} $\mathcal{O}(n)$ \\ \hline
 \end{tabular}%
 }}
-
+}
 
 \end{multicols*}
 
