@@ -27,6 +27,9 @@
 \newcommand{\eqqcolon}{\mathrel{\rotatebox[units=360]{180}{\ensuremath{\coloneqq}}}}
 
 % Document
+
+\pagenumbering{gobble}
+
 \begin{document}
 \begin{multicols*}{3}
 \raggedright
@@ -46,13 +49,12 @@
 
 \section{Algorithms}
 
-\subsubsection{Notions of Growth}
+\subsection{Order of Complexity}
 \begin{center}
 {\tiny
 $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n,\ n^2,\binom{n}{3} \in n^3,\ \ n^c,\  2^n,\ n!$
 }
 \end{center}
-\subsubsection{Tools Concerning Growth}
 {\tiny
 \begin{align*}
     \lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = 0 \Rightarrow f \in \mathcal{O}(g), \mathcal{O}(f) \subsetneq \mathcal{O}(g); \lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = C > 0 (C \text{ constant}) \\ \Rightarrow f \in \Theta (g); \frac{f(n)}{g(n)} \underset{n\rightarrow\infty}{\rightarrow} \infty g \in \mathcal{O}(f), \mathcal{O}(g) \subsetneq \mathcal{O}(f);
@@ -102,9 +104,7 @@ Works with two pointers $l$ and $r$. If $l > r$ the search was without result.
     \SetKwInOut{Output}{Output}
     \Input{A graph G and a starting vertex root of G}
     \Output{The parent links trace the shortest path back to root}
-    let Q be a queue\\
-    label root as discovered\\
-    Q.enqueue(root)\\
+    let Q be a queue; label root as discovered; Q.enqueue(root)\\
     \While {Q is not empty}{
            v := Q.dequeue()
            \If {v is the goal}{
@@ -113,14 +113,23 @@ Works with two pointers $l$ and $r$. If $l > r$ the search was without result.
            \For {all edges from v to w in G.adjacentEdges(v)}{
              \If {w is not labeled as discovered}{
             label w as discovered\\
-            w.parent := v\\
-            Q.enqueue(w)
+            w.parent := v; Q.enqueue(w)
              }
            }
     }
 \end{algorithm}}
 
 \section{Selecting}
+
+\subsection{Blum's Algorithm}
+A good pivot can be selected using the median-of-medians-algorithm
+
+\begin{enumerate}
+    \item Consider groups of 5 elements
+    \item Compute the median for each group (trivial)
+    \item Recursively compute medians
+\end{enumerate}
+
 \subsection{Pivot}
 {\scriptsize
 \begin{algorithm}[H]
@@ -335,26 +344,21 @@ AVL condition: $\forall v \in V: bal(v) \in \{-1,0,1\}$
 \textbf{Complete}: Graph where there is an edge between each pair of nodes. 
 
 
-\subsection{Algorithms}
-
-
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Depth First Visit}
+    \caption{Depth First Search}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
-    \Input{$G = (V,E)$}
-    %\Output{Product $x\cdot y$}
-    \For{$v \in V$}{
-        $v.color \leftarrow$ white;
-    }\For{$v \in V$}{
-        \If {$v.color =$ white}{
-        DFS-Visit($G,v$)
-        }
+    \Input{A graph G and a vertex v of G}
+    \Output{All vertices reachable from v labeled as discovered}
+    label v as discovered\\
+    \For {E $\in$ G.adjacentEdges(v) (lexicographic)}{
+            \If{vertex w is not labeled as discovered}{DFS(G, w)}
     }
+
 \end{algorithm}}
 
 \section{Topological Sorting} {
@@ -714,9 +718,9 @@ $T_{\infty} = $ longest single path | $S_{\infty} = \frac{T_1}{T_{\infty}}$
 
 \subsection{Performance Model}
 
-We have $p$ processors and the corresponding execution time $T_p$.\\ 
-
+We have $p$ processors and the corresponding execution time $T_p$.
 $T_{\infty}$: The span of the execution network or longest path. Thus the time needed if we have an infinite number of processors. 
+
 $$\text{Parallelism} = T_1/T_\infty$$\\
 
 \textbf{Lower Bound Laws}
