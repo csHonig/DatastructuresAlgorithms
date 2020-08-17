@@ -62,7 +62,7 @@ $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Inductive Maximum Subarray}
+    \caption{Inductive Maximum Subarray $\mathcal{O}(n)$}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -79,7 +79,6 @@ $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n
     }
     \Return{M}
 \end{algorithm}}
-Runtime : $\Theta(n)$
 \section{Searching}
 
 \subsection{Linear Search}
@@ -119,7 +118,7 @@ Works with two pointers $l$ and $r$. If $l > r$ the search was without result.
 \section{Selecting}
 
 \subsection{Blum's Algorithm}
-A good pivot can be selected using the median-of-medians-algorithm. $\mathbf{O}(n)$
+A good pivot can be selected using the median-of-medians-algorithm. $\mathcal{O}(n)$
 
 \begin{enumerate}
     \item Consider groups of 5 elements
@@ -155,7 +154,7 @@ A good pivot can be selected using the median-of-medians-algorithm. $\mathbf{O}(
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Quickselect}
+    \caption{Quickselect $\mathcal{O}(n^2)$}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -172,6 +171,7 @@ A good pivot can be selected using the median-of-medians-algorithm. $\mathbf{O}(
     \Else{\Return{$A[k]$}}
     }
 \end{algorithm}}
+
 \section{Sorting}
 
 %\begin{center}
@@ -204,7 +204,7 @@ Larger elements are moved back 1 pos.
 \subsection{Quicksort}
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Quicksort}
+    \caption{Quicksort $\mathcal{O}(n\cdot \log \cdot n)$}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -245,7 +245,7 @@ Larger elements are moved back 1 pos.
     return $l-1$
 \end{algorithm}}
 
-Runtime: in the mean $\mathcal{O}(n\cdot \log \cdot n)$, worst case $\Theta(n^2)$ if worst pivots are selected each time.
+Runtime: $\mathcal{O}(n\cdot \log \cdot n)$, worst case $\Theta(n^2)$ if worst pivots are selected each time.
 
 \subsection{Radix Sort}
 n-locks for n-keys $\in \mathcal{O}(n)$. We have m-adic binary numbers, so two categories to sort the numbers into. Used for numbers (and strings via UTF-8/ASCii)
@@ -401,7 +401,7 @@ On either directed or non-directed, weighted graph, find the shortest distance b
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Dijkstra}
+    \caption{Dijkstra $\mathcal{O}(|E|  log |V|) $}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -465,7 +465,7 @@ If we want to limit the number of edges that we pass trough for our solution we 
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Bellman-Ford}
+    \caption{Bellman-Ford $\mathcal{O}(|E| \cdot |V|) $}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -503,10 +503,6 @@ If we want to limit the number of edges that we pass trough for our solution we 
         }
     }
 \end{algorithm}}
-\textbf{Runtime of Bellman Ford}
-\begin{itemize}
-    \item $\mathcal{O}(|E| \cdot |V|) $
-\end{itemize}
 
 
 
@@ -517,7 +513,7 @@ Goal is to find the shortest path between all pairwise edges in a Graph G.
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Floyd-Warshall}
+    \caption{Floyd-Warshall $\mathcal{O}(|V|^3) $}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -550,15 +546,12 @@ Goal is to find the shortest path between all pairwise edges in a Graph G.
     }
 }
 \end{algorithm}}
-\textbf{Runtime of Floyd-Warshall}
-\begin{itemize}
-    \item $\mathcal{O}(|V|^3) $
-\end{itemize}
+
 
 
 \subsection{Johnson's Algorithm}
 
-Find the shortest paths between all pairs of vertices in an edge-weighted (negative), directed graph. Negative cycles are not allowed. It uses Bellman-Ford to remove all negative weights and then applies Dijkstra on the graph. The runtime is given by $\mathbf{O}(|V|^{2}\log |V|+|V||E|)$. Thus when the graph is sparse the algorithm is faster than Floyd-Warshall which solves the same problem in $\mathbf{O}(|V|
+Find the shortest paths between all pairs of vertices in an edge-weighted (negative), directed graph. Negative cycles are not allowed. It uses Bellman-Ford to remove all negative weights and then applies Dijkstra on the graph. The runtime is given by $\mathcal{O}(|V|^{2}\log |V|+|V||E|)$. Thus when the graph is sparse the algorithm is faster than Floyd-Warshall which solves the same problem in $\mathcal{O}(|V|
 ^3)$. 
 
 \begin{enumerate}
@@ -577,7 +570,7 @@ Find the shortest paths between all pairs of vertices in an edge-weighted (negat
 	\begin{itemize}
 	    \item V times Dijkstra. If negative edges, recreate graph with Johnson first $\mathcal{O}(|E| \cdot |V|  log |V| )$
 	    \item Floyd-Warshall. $\mathcal{O}( |V|^3 )$
-	    \item Johnsons in a sparse graph. $\mathbf{O}(|V|^{2}\log |V|+|V||E|)$
+	    \item Johnsons in a sparse graph. $\mathcal{O}(|V|^{2}\log |V|+|V||E|)$
 	\end{itemize} 
 	
 \end{itemize}
@@ -593,7 +586,7 @@ Given is a undirected weighted connected graph $G(V,E)$. Searched is a minimum s
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Kruskal}
+    \caption{Kruskal $\mathcal{O}(E \log E)$}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -610,11 +603,11 @@ Given is a undirected weighted connected graph $G(V,E)$. Searched is a minimum s
     }
 \end{algorithm}}
 Starts with the smallest edge! Edges that would create a cycle are subsequently discarded in the process $\rightarrow$ exam question.\\
-Runtime: $\mathcal{O}(E \log E)$
+
 \subsection{Jarnik (Prims) Algorithm}
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Jarnik Algorithm}
+    \caption{Jarnik Algorithm $\mathcal{O}(E + V \log V)$}
     \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
