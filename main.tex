@@ -481,7 +481,7 @@ On either directed or non-directed, weighted graph, find the shortest distance b
         }
     }
 \end{algorithm}}
-\textbf{Runtime of Dijkstra}
+
 \begin{itemize}
     \item Any data structure: $\mathcal{O}(|V|\cdot T_{em} + |E| \cdot T_{dp})$
     \item With an array or linked list $\mathcal{O}(|V|^2 + |E|) = \mathcal{O}(|V|^2) $
@@ -773,7 +773,9 @@ $$\text{Parallelism} = T_1/T_\infty$$\\
 
 \textbf{Work and Span for Recursions}
 
-$$T_1(n) = T_1(n_{new}) + \Theta,\ T_\infty(n) = T_\infty(n_{new}) + \Theta$$
+$$T_1(n) = r\times T_1(n_{new}) + \Theta,\ T_\infty(n) = T_\infty(n_{new}) + \Theta$$
+
+If the setup is not fully concurrent then $T_\infty$ will depend on the maximal concurrency. For four recursive calls which are joined as groups of two we have: $\Theta(2^{\log_4(n)}) = \Theta(n^{\log_4(2)}) = \Theta(n^{\frac{1}{2}})$
 
 \subsection{Parallel Programming in C++}
 
@@ -814,7 +816,8 @@ $$T_1(n) = T_1(n_{new}) + \Theta,\ T_\infty(n) = T_\infty(n_{new}) + \Theta$$
     \item Upon \texttt{notify\_all} or \texttt{notify\_one} wakeup it will reacquire the mutex atomically and check the condition. 
 \end{itemize}
 
-\subsubsection{Readers-Writers Lock Example}
+\subsubsection{Examples}
+\textbf{Readers-Writers Lock}
 \begin{verbatim}
 void acquire_read(){
     guard lock(m);
@@ -829,6 +832,22 @@ void release_read(){
     if (number_readers == 0){
       c.notify_all();
     }
+}
+\end{verbatim}
+\textbf{Reentrant Lock}
+\begin{verbatim}
+void lock(){
+    std::thread::id current = std::this_thread::get_id();
+    guard lck(m);
+    cv.wait(lck, [&]{return count == 0 or id == current;});
+    if (id != current) id = current; 
+    count++;
+}
+
+void unlock(){
+    guard lck(m);
+    count--;
+    if (count == 0) cv.notify_one();
 }
 \end{verbatim}
 
