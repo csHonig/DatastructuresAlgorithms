@@ -1,10 +1,14 @@
-\documentclass[10pt,landscape,a4paper, table]{extarticle}
+\documentclass[9pt,landscape,a4paper, table]{extarticle}
 \input{setup.tex}
 
 %Setting custom font to FiraSans
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{mathpazo}
+\renewcommand{\rmdefault}{put}
+
+\usepackage{hyperref}
 \usepackage[sfdefault]{FiraSans}
 %\usepackage{newtxsf}
 \usepackage{graphicx}
@@ -28,11 +32,15 @@
 \pagenumbering{gobble}
 
 \begin{document}
+
 \begin{multicols*}{3}
 \raggedright
 
 % Title
-\large{\textbf{Data Structures and Algorithms} SS20} // \normalsize{Gian Hiltbrunner\hspace{0.5cm}}\vspace{0.1cm}\hrule
+\large{\textbf{Data Structures and Algorithms} SS20} // %\normalsize{Gian Hiltbrunner}
+\url{https://git.io/JJFdz}
+
+\hrule
 
 % Set lengths
 \setlength{\parindent}{0pt}
@@ -48,22 +56,23 @@
 
 \subsection{Order of Complexity}
 \begin{center}
-{\tiny
+{\footnotesize
 $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n,\ n^2,\binom{n}{3} \in n^3,\ \ n^c,\  2^n,\ n!$
 }
 \end{center}
-{\tiny
+{\footnotesize
 \begin{align*}
     \lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = 0 \Rightarrow f \in \mathcal{O}(g), \mathcal{O}(f) \subsetneq \mathcal{O}(g); \lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = C > 0 (C \text{ constant}) \\ \Rightarrow f \in \Theta (g); \frac{f(n)}{g(n)} \underset{n\rightarrow\infty}{\rightarrow} \infty g \in \mathcal{O}(f), \mathcal{O}(g) \subsetneq \mathcal{O}(f);
     \sum_{k=1}^n k = \frac{n(n+1)}{2}
 \end{align*}}
 
+\begin{comment}
 \subsection{Maximum Subarray Alogrithm}
 
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Inductive Maximum Subarray $\mathcal{O}(n)$}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -79,6 +88,26 @@ $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n
     }
     \Return{M}
 \end{algorithm}}
+\end{comment}
+
+\subsection{Asymptotics of Recursions}
+
+$g: \Theta (2^n)$ $w: \Theta(n\log(n))$ $s: \Theta(n)$
+\begin{verbatim}
+void g(int n){
+    for (int i = 0; i<n ; ++i ){
+        g(i)
+    } f();
+}
+void w(int n){
+    if (n > 1){ w(n/2); w(n/2); } 
+    while (--n > 0){ f(); }
+}
+void s(int n){ f(); 
+if (n>1) { s(n/2); s(n/2); }}
+\end{verbatim}
+
+
 \section{Searching}
 
 \subsection{Linear Search}
@@ -94,7 +123,7 @@ Works with two pointers $l$ and $r$. If $l > r$ the search was without result.
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Breadth-first search}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -130,7 +159,7 @@ A good pivot can be selected using the median-of-medians-algorithm. $\mathcal{O}
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Selection via Pivot}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -154,8 +183,8 @@ A good pivot can be selected using the median-of-medians-algorithm. $\mathcal{O}
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Quickselect $\mathcal{O}(n^2)$}
-    \label{FWAlgorithm}
+    \caption{Quickselect $\mathcal{O}(n)$}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -179,7 +208,7 @@ A good pivot can be selected using the median-of-medians-algorithm. $\mathcal{O}
 %\end{center}
 %We should think about how to do the sorting algorithms
 \begin{itemize}
-    \item \textbf{Bubblesort}: Always swap if $A[i-1]> A[i]$. In each round, the max in the unsorted part will move to the right (like a bubble). $\Theta(n^2)$ stable
+    \item \textbf{Bubblesort}: Swap if $A[i-1]> A[i]$. In each round, the max in the unsorted part will move to the right. $\Theta(n^2)$ stable
     \item \textbf{Selection sort}: swap the smallest element in the unsorted part with the most right element of the sorted part. $\Theta(n^2)$ unstable
     
     \begin{verbatim}
@@ -204,8 +233,8 @@ Larger elements are moved back 1 pos.
 \subsection{Quicksort}
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Quicksort $\mathcal{O}(n\cdot \log \cdot n)$}
-    \label{FWAlgorithm}
+    \caption{Quicksort $\mathcal{O}(n\cdot \log n)$}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -222,7 +251,7 @@ Larger elements are moved back 1 pos.
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Partition}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -245,16 +274,18 @@ Larger elements are moved back 1 pos.
     return $l-1$
 \end{algorithm}}
 
-Runtime: $\mathcal{O}(n\cdot \log \cdot n)$, worst case $\Theta(n^2)$ if worst pivots are selected each time.
+Runtime: ${\Theta}(n\cdot \log n)$, worst case $\Theta(n^2)$ if worst pivots are selected each time.
 
 \subsection{Radix Sort}
 n-locks for n-keys $\in \mathcal{O}(n)$. We have m-adic binary numbers, so two categories to sort the numbers into. Used for numbers (and strings via UTF-8/ASCii)
 \subsection{Bucket Sort}
-Create a number of buckets. Sort e.g. after decimality into buckets and sort those buckets then. Can be implemented via linked list or a dynamic list(heap?).
+Create a number of buckets. Sort e.g. after decimality into buckets and sort those buckets then. Can be implemented via linked list.
 
-{
-\hspace{1cm}\includegraphics[width = 0.8\linewidth]{img/Bucket.png}
-}
+
+\begin{center}
+    \hspace{1cm}\includegraphics[width = 0.6\linewidth]{img/Bucket.png}
+\end{center}
+
 
 
 \section{Hashing}
@@ -287,12 +318,20 @@ $T_{left}$, then $T_{right}$, next $v$
 $T_{left}$, then $v$, next $T_{left}$ $\rightarrow$ ascending sequence.
 
 \subsection{Heaps}
-Keys are strictly larger/smaller depending on Max- or Minheap.
+Keys are strictly larger/smaller depending on Max- or Minheap. If the root is at index $0$: Children at indices $2i + 1$ and $2i + 2$
+\subsubsection{Build}
+In order to build a heap we run \texttt{heapify} on each element letting it trickle down. This takes $n\cdot \log n$ steps. Thus we get a runtime of $\mathcal{O}(n \log n)$ 
 \subsubsection{Insertion}
 Inserting a key into a heap can possibly violate the heap settings - Is reinstated by successive rising up. 
 \subsubsection{Heap Sort}
-Every subtree is a heap - inductive sorting from below. $\rightarrow \mathcal{O}(n\cdot \log n)$
+Non-stable sort using inductive sorting from below. With a running time of $\mathcal{O}(n\cdot \log n)$.
 
+\begin{enumerate}
+    \item Call the buildMaxHeap() function on the list. Also referred to as heapify(), this builds a heap from a list in O(n) operations.
+\item Swap the first element of the list with the final element. Decrease the considered range of the list by one.
+\item Call the siftDown() function on the list to sift the new first element to its appropriate index in the heap.
+\item Go to step (2) unless the considered range of the list is one element.
+\end{enumerate}
 
 \subsection{Quadtrees}
 Partitioning a subsection into 4 equal parts. If there are too many objects stored in one node, we split the node into four children. Objects that are falling on a border are stored in the parent node.
@@ -333,6 +372,10 @@ AVL condition: $\forall v \in V: bal(v) \in \{-1,0,1\}$
     \item \textbf{Reconstruction}: Recursively walk back and check $\displaystyle A_{i,j} = A_{i,k-1}\langle s_{k-1}\rangle A_{k,j}$
 \end{enumerate}
 
+%\subsection{Classes of Problems}
+
+
+
 \section{Graphs}
 
 \subsection{Basics}
@@ -345,7 +388,7 @@ AVL condition: $\forall v \in V: bal(v) \in \{-1,0,1\}$
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Depth First Search}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -364,7 +407,7 @@ A directed graph has a topological sorting if it is acyclic. \textbf{Idea} We su
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Topological Sorting}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -402,7 +445,7 @@ On either directed or non-directed, weighted graph, find the shortest distance b
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Dijkstra $\mathcal{O}(|E|  log |V|) $}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -440,10 +483,10 @@ On either directed or non-directed, weighted graph, find the shortest distance b
 \end{algorithm}}
 \textbf{Runtime of Dijkstra}
 \begin{itemize}
-    \item any data structure: $\mathcal{O}(|V|\cdot T_{em} + |E| \cdot T_{dp})$
-    \item with an array or linked list $\mathcal{O}(|V|^2 + |E|) = \mathcal{O}(|V|^2) $
-    \item dense graph in adjacency list $\mathcal{O}(|V|^2 log |V|) $ since $|E| = |V|^2$ and DecreaseKey $log(|V|)$
-    \item sparse connected graph in adjacency list/ stored in binary tree $\mathcal{O}(|E|  log |V|) $
+    \item Any data structure: $\mathcal{O}(|V|\cdot T_{em} + |E| \cdot T_{dp})$
+    \item With an array or linked list $\mathcal{O}(|V|^2 + |E|) = \mathcal{O}(|V|^2) $
+    \item Dense graph in adjacency list $\mathcal{O}(|V|^2 log |V|) $ since $|E| = |V|^2$ and DecreaseKey $log(|V|)$
+    \item Sparse connected graph in adjacency list/ stored in binary tree $\mathcal{O}(|E|  log |V|) $
 \end{itemize}
 
 \subsection{A-Star}
@@ -461,12 +504,12 @@ A good heuristic $h(n)$ is the Manhattan distance.
 \subsection{Bellman-Ford}
 
 Instead of optimizing the order in which vertices are processed, Bellman-Ford simply relaxes all the edges $|V| - 1$ times and hence runs in $\mathcal{O}(|V| |E|)$ time.\\
-If we want to limit the number of edges that we pass trough for our solution we can limit the outer loop to only run $k$ times.
+If we want to limit the number of edges that we pass trough for our solution we can limit the outer loop to only run $k - 1$ times.
 
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Bellman-Ford $\mathcal{O}(|E| \cdot |V|) $}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -514,7 +557,7 @@ Goal is to find the shortest path between all pairwise edges in a Graph G.
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Floyd-Warshall $\mathcal{O}(|V|^3) $}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -551,6 +594,11 @@ Goal is to find the shortest path between all pairwise edges in a Graph G.
 
 \subsection{Johnson's Algorithm}
 
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{img/1080px-Johnson's_algorithm.svg.png}
+\end{center}
+\vspace{-0.2cm}
+
 Find the shortest paths between all pairs of vertices in an edge-weighted (negative), directed graph. Negative cycles are not allowed. It uses Bellman-Ford to remove all negative weights and then applies Dijkstra on the graph. The runtime is given by $\mathcal{O}(|V|^{2}\log |V|+|V||E|)$. Thus when the graph is sparse the algorithm is faster than Floyd-Warshall which solves the same problem in $\mathcal{O}(|V|
 ^3)$. 
 
@@ -570,7 +618,7 @@ Find the shortest paths between all pairs of vertices in an edge-weighted (negat
 	\begin{itemize}
 	    \item V times Dijkstra. If negative edges, recreate graph with Johnson first $\mathcal{O}(|E| \cdot |V|  log |V| )$
 	    \item Floyd-Warshall. $\mathcal{O}( |V|^3 )$
-	    \item Johnsons in a sparse graph. $\mathcal{O}(|V|^{2}\log |V|+|V||E|)$
+	    \item Johnsons on a sparse graph. $\mathcal{O}(|V|^{2}\log |V|+|V||E|)$
 	\end{itemize} 
 	
 \end{itemize}
@@ -587,7 +635,7 @@ Given is a undirected weighted connected graph $G(V,E)$. Searched is a minimum s
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Kruskal $\mathcal{O}(E \log E)$}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -608,7 +656,7 @@ Starts with the smallest edge! Edges that would create a cycle are subsequently 
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Jarnik Algorithm $\mathcal{O}(E + V \log V)$}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -629,14 +677,14 @@ Union: Add the smaller subtree as a child to the larger subtree.
 
 \section{Max Flow / Min Cut}
 Given a flow network, determine the maximal flow allowed.
-The cut of the Graph G(S,T) into a source graph S and a sink graph T with the smallest capacity (min cut) will have the same capicity as the maximal flow.
+The cut of the Graph G(S,T) into a source graph S and a sink graph T with the smallest capacity (min cut) will have the same capacity as the maximal flow.
 
 \subsection{Ford-Fulkerson}
 
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Ford-Fulkerson}
-    \label{FWAlgorithm}
+    
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -677,7 +725,8 @@ $\mathcal{O}(|V||E|)$ iterations, each of which can be done in $\mathcal{O}( |E|
 \begin{itemize}
     \item Representation of simple graph with nodes representing the actual states (e.g. city).
     \item Representation of state space with nodes representing the current state of the system. (e.g. city and money left) $\rightarrow$ City is connected to neighbouring cities with the states that the system can take from here. ($A_{5\$}$ $\underset{-2\$}{\rightarrow}$ $B_{3\$}$)
-    \item Cycle detection problem - e.g. figuring out if we can generate $\infty$ revenue. The Bellman–Ford algorithm will converge after iterating through the edges at most $| V | -1$ times (as there cannot be more edges in a shortest path) if and only if there is no such negative cycle. 
+    \item Finding a shortest path of length exactly $l$. We use a layered graph with $l$ layers. Then we run Dijkstra on this graph. (Finding the shortest path when visiting $l$ cities.)
+    \item Cycle detection problem - e.g. figuring out if we can generate $\infty$ revenue. The check includes if the shortest path to node 1 has decreased after one more iteration of the outermost loop of Bellman-Ford. The Bellman–Ford algorithm will converge after iterating through the edges at most $| V | -1$ times (as there cannot be more edges in a shortest path) if and only if there is no such negative cycle.
 \end{itemize}
 
 \textbf{Bipartite Matching Problem}
@@ -694,18 +743,20 @@ $\mathcal{O}(|V||E|)$ iterations, each of which can be done in $\mathcal{O}( |E|
 \textbf{Failure Resilience Problem}
 
 \begin{itemize}
-    \item Edge failure resilience - Maximal flow $- 1$ between A and B gives the number of edges that can be removed before the connection fails. 
-    \item Node failure resilience - Replace each node with an edge - Model failure state by this edge weight. 
+    \item Edge disjoint graph - Maximal flow $- 1$ between A and B gives the number of edges that can be removed before the connection fails. 
+    \item Node disjoint graph - Replace each node with an edge - Model failure state by this edge weight. 
 \end{itemize}
 
 \section{Parallel Programming}
 Amdahl assumes a fixed relative sequential portion ($\lambda$), Gustafson assumes a fixed absolute sequential part.
 
 \textbf{Amdahl}: $S_A = \frac{1}{\lambda + \frac{1-\lambda}{p}}$\ \textbf{Gustafson}: $S_G=p-\lambda(p-1)$
-\subsection{Speedup calculation}
-$T_p \leq \frac{T_1}{p} + T_\infty$ |  $S_p \geq \frac{T_1}{T_p}$\\
+
+\subsection{Speedup Calculation}
+$T_p \leq \frac{T_1}{p} + T_\infty $ $^*$ |  $S_p = \frac{T_1}{T_p}$\\
 $T_{\infty} = $ longest single path | $S_{\infty} = \frac{T_1}{T_{\infty}}$
 
+In order to comply with the estimates for a greedy scheduler, it must hold that $*$ and the \textbf{Lower Bound Laws} hold. 
 \subsection{Performance Model}
 
 We have $p$ processors and the corresponding execution time $T_p$.
@@ -716,9 +767,13 @@ $$\text{Parallelism} = T_1/T_\infty$$\\
 \textbf{Lower Bound Laws}
 
 \begin{align*}
-    T_p \geq T_1/p\quad \text{Work law}\\
-    T_p \geq T_\infty\quad \text{Span law}\\
+    T_p \geq T_1/p\quad \text{Work law}
+    \qquad T_p \geq T_\infty\quad \text{Span law}
 \end{align*}
+
+\textbf{Work and Span for Recursions}
+
+$$T_1(n) = T_1(n_{new}) + \Theta,\ T_\infty(n) = T_\infty(n_{new}) + \Theta$$
 
 \subsection{Parallel Programming in C++}
 
@@ -758,6 +813,25 @@ $$\text{Parallelism} = T_1/T_\infty$$\\
     \item Releases the \texttt{std::mutex} and executes a wait operation on the current thread if the condition does not hold. 
     \item Upon \texttt{notify\_all} or \texttt{notify\_one} wakeup it will reacquire the mutex atomically and check the condition. 
 \end{itemize}
+
+\subsubsection{Readers-Writers Lock Example}
+\begin{verbatim}
+void acquire_read(){
+    guard lock(m);
+    c.wait(lock,[&]{return number_writers == 0 ;});
+    ++number_readers;
+}
+  
+void release_read(){
+    guard lock(m);
+    assert(number_readers > 0);
+    --number_readers;
+    if (number_readers == 0){
+      c.notify_all();
+    }
+}
+\end{verbatim}
+
 \subsection{Race Conditions}
 \subsubsection{Data Race}
 Bad synchronisation of a shared resource, e.g. two writing processes at the same time.
@@ -768,9 +842,9 @@ Unlucky order of execution of e.g. two threads even though the shared resource i
 
 {
 
-\setlength\tabcolsep{0.8pt}
+\setlength\tabcolsep{3pt}
 \begingroup
-\scriptsize
+\footnotesize
 \renewcommand{\arraystretch}{2} 
 \begin{tabular}{|c | c c c | c|}
     \hline
@@ -793,8 +867,8 @@ Unlucky order of execution of e.g. two threads even though the shared resource i
 
 {
 \centering
-\setlength\tabcolsep{2pt}
-\scriptsize
+\setlength\tabcolsep{3.9pt}
+\footnotesize
 %\resizebox{\textwidth}
 {
 \begin{tabular}{|c|c|c|c|c|c|}
