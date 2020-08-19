@@ -117,12 +117,12 @@ Worst case: n comparisons\\
 Expected: $\mathrm{E}(x) = \frac{1}{n}\sum_{i=1}^n i = \frac{n+1}{2} \in \Theta(n)$
 
 \subsection{Binary Search}
-divide and conquer approach $\rightarrow \Theta(\log n)$
+Divide and conquer approach $\rightarrow \Theta(\log n)$
 Works with two pointers $l$ and $r$. If $l > r$ the search was without result.
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Breadth-first search}
+    \caption{Breadth-first search $\mathcal{O}(|V|+|E|)=\mathcal{O}(b^{d})$}
     
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -282,9 +282,9 @@ Larger elements are moved back 1 pos.
 
 Runtime: ${\Theta}(n\cdot \log n)$, worst case $\Theta(n^2)$ if worst pivots are selected each time.
 
-\subsection{Radix Sort}
-n-locks for n-keys $\in \mathcal{O}(n)$. We have m-adic binary numbers, so two categories to sort the numbers into. Used for numbers (and strings via UTF-8/ASCii)
-\subsection{Bucket Sort}
+\subsection{Radix Sort $\mathcal{O}(w_{\text{\normalfont bits}}n)$}
+$n$-locks for $n$-keys $\in \mathcal{O}(n)$. We have m-adic binary numbers, so two categories to sort the numbers into. Used for numbers (and strings via UTF-8/ASCii)
+\subsection{Bucket Sort ${\displaystyle \Theta(n+{\frac {n^{2}}{k}}+k)}$}
 Create a number of buckets. Sort e.g. after decimality into buckets and sort those buckets then. Can be implemented via linked list.
 
 
@@ -393,7 +393,7 @@ AVL condition: $\forall v \in V: bal(v) \in \{-1,0,1\}$
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Depth First Search}
+    \caption{Depth First Search $\mathcal{O}(|V| + |E|)= \mathcal{O}(b^d)$}
     
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
@@ -685,7 +685,7 @@ Union: Add the smaller subtree as a child to the larger subtree.
 Given a flow network, determine the maximal flow allowed.
 The cut of the Graph G(S,T) into a source graph S and a sink graph T with the smallest capacity (min cut) will have the same capacity as the maximal flow.
 
-\subsection{Ford-Fulkerson}
+\subsection{Ford-Fulkerson $\mathcal{O}(|E| \cdot f*)$}
 
 {\scriptsize
 \begin{algorithm}[H]
