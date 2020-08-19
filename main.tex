@@ -57,17 +57,18 @@
 \subsection{Order of Complexity}
 \begin{center}
 {\footnotesize
-$1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n,\ n^2,\binom{n}{3} \in n^3,\ \ n^c,\  2^n,\ n!$
+$1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n,\ n^2,\binom{n}{3} \in n^3,\ \ n^c,\  2^n,\ n!,\ n^n$
 }
 \end{center}
 {\footnotesize
 \begin{align*}
-    \lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = 0 \Rightarrow f \in \mathcal{O}(g), \mathcal{O}(f) \subsetneq \mathcal{O}(g); \lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = C > 0 (C \text{ constant}) \\ \Rightarrow f \in \Theta (g); \frac{f(n)}{g(n)} \underset{n\rightarrow\infty}{\rightarrow} \infty g \in \mathcal{O}(f), \mathcal{O}(g) \subsetneq \mathcal{O}(f);
-    \sum_{k=1}^n k = \frac{n(n+1)}{2}
+    %\lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = 0 \Rightarrow f \in \mathcal{O}(g), \mathcal{O}(f) \subsetneq \mathcal{O}(g); \lim _{n\rightarrow\infty}\frac{f(n)}{g(n)} = C > 0 (C \text{ constant}) \\ \Rightarrow f \in \Theta (g); \frac{f(n)}{g(n)} \underset{n\rightarrow\infty}{\rightarrow} \infty g \in \mathcal{O}(f), \mathcal{O}(g) \subsetneq \mathcal{O}(f);
+    \Theta(\sum_{i=0}^n i^2) = \Theta(n^3), 
+    \sum_{k=1}^n k = \frac{n(n+1)}{2}, {\displaystyle \log _{2}n!=n\log _{2}n-n\log _{2}e+O(\log _{2}n).}
 \end{align*}}
 
 \begin{comment}
-\subsection{Maximum Subarray Alogrithm}
+\subsection{Maximum Subarray Algorithm}
 
 {\scriptsize
 \begin{algorithm}[H]
@@ -92,21 +93,20 @@ $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n
 
 \subsection{Asymptotics of Recursions}
 
-$g: \Theta (2^n)$ $w: \Theta(n\log(n))$ $s: \Theta(n)$
 \begin{verbatim}
-void g(int n){
-    for (int i = 0; i<n ; ++i ){
-        g(i)
-    } f();
-}
-void w(int n){
-    if (n > 1){ w(n/2); w(n/2); } 
-    while (--n > 0){ f(); }
-}
-void s(int n){ f(); 
-if (n>1) { s(n/2); s(n/2); }}
+    void g(int n){
+        for (int i = 0; i<n ; ++i ){
+            g(i)
+        } f();
+    }
+    void w(int n){
+        if (n > 1){ w(n/2); w(n/2); } 
+        while (--n > 0){ f(); }
+    }
+    void s(int n){ f(); 
+    if (n>1) { s(n/2); s(n/2); }}
 \end{verbatim}
-
+$$g: \Theta (2^n),\ w: \Theta(n\log(n)),\ s: \Theta(n)$$
 
 \section{Searching}
 
@@ -354,7 +354,7 @@ AVL condition: $\forall v \in V: bal(v) \in \{-1,0,1\}$
 
 \section{Dynamic Programming}
 
-\subsection{Samples}
+\subsection{Examples}
 
 \textbf{One-dimensional}\\
 \textit{Problem}: Finding the longest possible combination of downwards ski slopes with lengths $l_i$. The slopes connect the stations with heights $h_i$.  
@@ -615,7 +615,7 @@ Find the shortest paths between all pairs of vertices in an edge-weighted (negat
     \item $q$ is removed and Dijkstra is used to find the shortest paths from each node $s$ to every other vertex in the reweighted graph. The original distance is computed by adding $h(v)- h(u)$.
 \end{enumerate}
 
-\subsection{Choice of algorithm}
+\subsection{Choice of Algorithm}
 \begin{itemize}
 	\item No weights or all equal weights $\rightarrow$ BFS ($\Theta(|V|+|E|)$)
 	\item Only positive weights $\rightarrow$ Dijkstra with Fibonacci Heap ($\mathcal{O}(|V|\cdot \log(|V|) + |E|)$)
@@ -759,10 +759,10 @@ Amdahl assumes a fixed relative sequential portion ($\lambda$), Gustafson assume
 \textbf{Amdahl}: $S_A = \frac{1}{\lambda + \frac{1-\lambda}{p}}$\ \textbf{Gustafson}: $S_G=p-\lambda(p-1)$
 
 \subsection{Speedup Calculation}
-$T_p \leq \frac{T_1}{p} + T_\infty $ $^*$ |  $S_p = \frac{T_1}{T_p}$\\
+$T_p \leq \frac{T_1}{p} + T_\infty $ \textbf{*} |  $S_p = \frac{T_1}{T_p}$\\
 $T_{\infty} = $ longest single path | $S_{\infty} = \frac{T_1}{T_{\infty}}$
 
-In order to comply with the estimates for a greedy scheduler, it must hold that $*$ and the \textbf{Lower Bound Laws} hold. 
+In order to comply with the estimates for a greedy scheduler, it must hold that \textbf{*} and the \textbf{Lower Bound Laws} hold. 
 \subsection{Performance Model}
 
 We have $p$ processors and the corresponding execution time $T_p$.
@@ -781,7 +781,7 @@ $$\text{Parallelism} = T_1/T_\infty$$\\
 
 $$T_1(n) = r\times T_1(n_{new}) + \Theta,\ T_\infty(n) = T_\infty(n_{new}) + \Theta$$
 
-If the setup is not fully concurrent then $T_\infty$ will depend on the maximal concurrency. For four recursive calls which are joined as groups of two we have: $\Theta(2^{\log_4(n)}) = \Theta(n^{\log_4(2)}) = \Theta(n^{\frac{1}{2}})$
+If the setup is not fully concurrent then $T_\infty$ will depend on the maximal concurrency. For recursive calls $T(n/4)$ which are joined as groups of two we have: $\Theta(2^{\log_4(n)}) = \Theta(n^{\log_4(2)}) = \Theta(n^{\frac{1}{2}})$
 
 \subsection{Parallel Programming in C++}
 
@@ -863,7 +863,7 @@ Bad synchronisation of a shared resource, e.g. two writing processes at the same
 \subsubsection{Bad Interleaving}
 Unlucky order of execution of e.g. two threads even though the shared resource is otherwise well synchronised.
 
-\section{Complexities}
+\section{Addendum}
 
 {
 
@@ -1024,6 +1024,26 @@ AVL Tree &
 \end{tabular}%
 }}
 }
+\subsection{Recursion Proofs}
+\vspace{-0.2cm}
+{\small
+\begin{align*}
+    &T(n) = 3T(n/3) + n\ \text{for}\ n > 1;\ 0\ \text{else}\\
+    &\text{\textbf{Hypothesis: }} T(n) = f(n) =: n\log_3 n\\
+    &\text{\textbf{Base Case: }} T(1) =0 1\log_3 1 = 0\\
+    &\text{\textbf{Step: }} T(3n) = f(3n)\\
+    &\qquad T(3n) = 3T(n) + 3n = 3f(n) + 3n\\
+    &\qquad 3n(1+\log_3n) = (3n)\log_3(3n) = f(3n)\ \text{qed.}\\
+    &-----------------------------\\
+    &T(n) = 3T(n-1) + 2^n\ \text{for}\ n > 0;\ 1\ \text{else}\\
+    &\qquad =\sum_{k=0}^n 3^k2^{n-k} = 2^n\sum_{k=0}^n 3^k2^{-k} = 2^n\frac{(3/2)^{n+1}-1}{3/2-1} = 3^{n+1}-2^{n+1}\\
+    &\text{\textbf{Hypothesis: }} T(n) = 3^{n+1}-2^{n+1}\\
+    &\text{\textbf{Base Case: }} T(0) =1 =3-2 =1\\
+    &\text{\textbf{Step: }} T(n) = 3T(n-1)+2^n =3(3^n-2^n)+2^n\\
+    &\qquad = 3^{n+1}-3 = 3^{n+1}-2^{n+1} \ \text{qed.}
+\end{align*}
+}
+
 
 \end{multicols*}
 
