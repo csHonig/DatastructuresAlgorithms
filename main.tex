@@ -508,11 +508,7 @@ $A^*$ is an extension of Dijkstra's algorithm using a additional heuristic to gu
 
 $$f(n) = g(n) + h(n)$$
 
-$f(n)$ :total estimated cost of path through node $n$,
-$g(n)$: cost so far to reach node $n$,
-$h(n)$: estimated cost from $n$ to goal.\\
-
-A good heuristic $h(n)$ is the Manhattan distance. 
+$f(n)$: Total estimated cost of path through node $n$, $g(n)$: Cost so far to reach node $n$, $h(n)$: Estimated cost from $n$ to goal. A good heuristic $h(n)$ is the Manhattan distance. 
 
 \subsection{Bellman-Ford}
 
@@ -521,8 +517,8 @@ If we want to limit the number of edges that we pass trough for our solution we 
 
 {\scriptsize
 \begin{algorithm}[H]
-    \caption{Bellman-Ford $\mathcal{O}(|E| \cdot |V|) $}
-    
+    \caption{Bellman-Ford}
+    \label{FWAlgorithm}
     \SetAlgoLined
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -536,20 +532,17 @@ If we want to limit the number of edges that we pass trough for our solution we 
     }
     $dist[source] =$ 0;
     
-
+\For{$i$ in $|V|-1$}{
     \For{$u$ in $|V|$}{
-        
         \For{$v$ in Neighbors of $u$}{
             $alt =  dist[u] + length(u,v)$;
-            
             \If{$alt < dist[v]$}
             {  
-                $dist[v] = alt$;
-                
-                $prev[v] = u$;
+                $dist[v] = alt$; $prev[v] = u$;
             }
         }
     }
+}
     
     \For{each edge ($u$, $v$) with weight $w$ in $|E|$}
     {
@@ -559,7 +552,6 @@ If we want to limit the number of edges that we pass trough for our solution we 
         }
     }
 \end{algorithm}}
-
 
 
 
@@ -756,7 +748,7 @@ $\mathcal{O}(|V||E|)$ iterations, each of which can be done in $\mathcal{O}( |E|
 \textbf{Failure Resilience Problem}
 
 \begin{itemize}
-    \item Edge disjoint graph - Maximal flow $- 1$ between A and B gives the number of edges that can be removed before the connection fails. 
+    \item Edge disjoint graph - Maximal flow $k- 1$ between A and B gives the number of edges that can be removed before the connection fails. 
     \item Node disjoint graph - Replace each node with an edge - Model failure state by this edge weight. 
 \end{itemize}
 
