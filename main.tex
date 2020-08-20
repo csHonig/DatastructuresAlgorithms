@@ -92,7 +92,7 @@ $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n
 \end{comment}
 
 \subsection{Asymptotics of Recursions}
-
+{\footnotesize
 \begin{verbatim}
     void g(int n){
         for (int i = 0; i<n ; ++i ){
@@ -106,8 +106,15 @@ $1,\ \log\log n,\ \sqrt{\log n},\ \log\sqrt{n},\ \log n,\ \sqrt{n},\ n,\ n\log n
     void s(int n){ f(); 
     if (n>1) { s(n/2); s(n/2); }}
 \end{verbatim}
+}
 $$g: \Theta (2^n),\ w: \Theta(n\log(n)),\ s: \Theta(n)$$
 
+{\footnotesize
+
+
+\subsection{Logarithms and Important Sums}
+$\log_bx=\log_b a \times\log_a x,\ a^{log_b x} = x^{log_b a},\ \ln(n!) = \sum_{i=1}^n \ln i = \approx n\ln(n) - n,\ \sum_{i=0}^n i^k \in \Theta(n^{k+1}),\ \sum_{i=0}^n p^i = \frac{1-p^{n+1}}{1-p},\ \sum_{i=0}^\infty p^i = \frac{1}{1-p} \forall p \in \left[0, 1\right)$
+}
 \section{Searching}
 
 \subsection{Linear Search}
@@ -155,7 +162,7 @@ A good pivot can be selected using the median-of-medians-algorithm. $\mathcal{O}
     \item Recursively compute medians
 \end{enumerate}
 
-\subsection{Pivot}
+\subsection{Quickselect}
 {\scriptsize
 \begin{algorithm}[H]
     \caption{Selection via Pivot}
@@ -209,7 +216,7 @@ A good pivot can be selected using the median-of-medians-algorithm. $\mathcal{O}
 %We should think about how to do the sorting algorithms
 \begin{itemize}
     \item \textbf{Bubblesort}: Swap if $A[i-1]> A[i]$. In each round, the max in the unsorted part will move to the right. $\Theta(n^2)$ stable
-    \item \textbf{Selection sort}: swap the smallest element in the unsorted part with the most right element of the sorted part. $\Theta(n^2)$ unstable
+    \item \textbf{Selection sort}: Swap the smallest element in the unsorted part with the most right element of the sorted part. $\Theta(n^2)$ unstable
     
     \begin{verbatim}
 arr[] = 64 25 12 22 11
@@ -284,7 +291,7 @@ Runtime: ${\Theta}(n\cdot \log n)$, worst case $\Theta(n^2)$ if worst pivots are
 
 \subsection{Radix Sort $\mathcal{O}(w_{\text{\normalfont bits}}n)$}
 $n$-locks for $n$-keys $\in \mathcal{O}(n)$. We have m-adic binary numbers, so two categories to sort the numbers into. Used for numbers (and strings via UTF-8/ASCii)
-\subsection{Bucket Sort ${\displaystyle \Theta(n+{\frac {n^{2}}{k}}+k)}$}
+\subsection{Bucket Sort ${\displaystyle \Theta(n+{ {n^{2}}/{k}}+k)}$}
 Create a number of buckets. Sort e.g. after decimality into buckets and sort those buckets then. Can be implemented via linked list.
 
 
@@ -333,7 +340,7 @@ Inserting a key into a heap can possibly violate the heap settings - Is reinstat
 Non-stable sort using inductive sorting from below. With a running time of $\mathcal{O}(n\cdot \log n)$.
 
 \begin{enumerate}
-    \item Call the buildMaxHeap() function on the list. Also referred to as heapify(), this builds a heap from a list in O(n) operations.
+    \item Call the buildMaxHeap() function on the list. Also referred to as heapify(), this builds a heap from a list in $\mathcal{O}(n)$ operations.
 \item Swap the first element of the list with the final element. Decrease the considered range of the list by one.
 \item Call the siftDown() function on the list to sift the new first element to its appropriate index in the heap.
 \item Go to step (2) unless the considered range of the list is one element.
